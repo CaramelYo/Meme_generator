@@ -24,7 +24,12 @@ namespace Meme_generator
 
                 foreach (Control c in tp.Controls)
                     if (c.GetType() == typeof(RadioButton))
-                        rbs.Add((RadioButton)c);
+                    {
+                        RadioButton rb = (RadioButton)c;
+                        rb.Click += radio_btn_click;
+
+                        rbs.Add(rb);
+                    }
                 
                 total_rbs.Add(rbs);
             }
@@ -89,6 +94,13 @@ namespace Meme_generator
                     );
             
             sentence_label.Text = total_rbs[2][selections[2]].Text;
+
+            sentence_label.Left = (Width - sentence_label.Width) / 2;
+        }
+
+        private void radio_btn_click(object sender, EventArgs e)
+        {
+            generate();
         }
 
         private void random_btn_Click(object sender, EventArgs e)
